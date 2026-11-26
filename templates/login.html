@@ -1,5 +1,5 @@
 {% extends "layout/base_limpa.html" %}
-<!-- Login: formulario que permite ao usuario informar email e senha para entrar no sistema. -->
+
 
 {% block titulo_aba %}Login | HD2R{% endblock %}
 
@@ -10,37 +10,37 @@
         <h1 class="h2 fw-bold mt-2">Entrar</h1>
         <p class="text-secondary mb-0">Acesse o sistema com o e-mail e a senha do seu cadastro.</p>
     </div>
-    <!-- Formulario: os campos enviados por POST sao recebidos e processados pela rota Flask. -->
+    
 <form method="POST" action="{{ url_for('login') }}" id="formLogin" novalidate>
-            <!-- Campo de entrada que coleta uma informacao do usuario. -->
+            
 <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
             
         <div class="mb-3">
             <label for="email" class="form-label fw-semibold">E-mail *</label>
-            <!-- Campo de entrada que coleta uma informacao do usuario. -->
+            
 <input type="email" class="form-control" id="email" name="email" placeholder="nome@email.com"
                    value="{{ dados.get('email','') }}" autocomplete="username" autofocus required>
         </div>
         <div class="mb-4">
             <label for="senha" class="form-label fw-semibold">Senha *</label>
             <div class="input-group">
-                <!-- Campo de entrada que coleta uma informacao do usuario. -->
+                
 <input type="password" class="form-control" id="senha" name="senha" placeholder="Digite sua senha"
                        autocomplete="current-password" required>
-                <!-- Botao que executa a acao indicada no formulario ou interface. -->
+                
 <button type="button" class="btn btn-outline-secondary" id="mostrarSenha" aria-label="Mostrar ou ocultar a senha">
                     <i class="bi bi-eye" id="iconeSenha"></i>
                 </button>
             </div>
         </div>
         <div class="d-grid">
-            <!-- Botao que executa a acao indicada no formulario ou interface. -->
+            
 <button type="submit" class="btn btn-verde btn-lg"><i class="bi bi-box-arrow-in-right"></i> Entrar</button>
         </div>
     </form>
     <hr class="my-4">
     <p class="text-center text-secondary mb-0">Ainda não tem cadastro?
-        <!-- Link/atalho de navegacao para outra rota do sistema. -->
+        
 <a href="{{ url_for('cadastro') }}" class="fw-semibold text-success">Cadastre-se</a>
     </p>
 </div>

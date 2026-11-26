@@ -1,14 +1,14 @@
-<!-- Pagina de erro 404: exibida quando o endereco solicitado nao corresponde a uma rota existente. -->
-<!-- Página exibida quando o endereço solicitado não existe (erro 404). Os comentários seguintes explicam a estrutura e os blocos principais. -->
+
+
 {% extends "layout/base_limpa.html" %}
 {% block titulo_aba %}Página não encontrada | HD2R{% endblock %}
 {% block conteudo %}
 <div class="card p-5 text-center">
     <div class="display-1 fw-bold text-success">404</div>
-    <!-- Titulo/mensagem principal da pagina de erro. -->
+    
 <h1 class="h3">Página não encontrada</h1>
     <p class="text-secondary">O endereço acessado não existe ou foi movido.</p>
-    <!-- Link para o usuario voltar a uma pagina utilizavel. -->
+    
 <a href="{{ url_for('index') if session.get('municipe_id') else url_for('login') }}" class="btn btn-verde">Voltar</a>
 </div>
 {% endblock %}

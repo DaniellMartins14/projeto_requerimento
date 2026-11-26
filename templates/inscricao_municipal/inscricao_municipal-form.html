@@ -1,6 +1,6 @@
-{% extends "layout/base_menu.html" %} <!-- configura headder, footer e etc que é padrão em todo código-->
+{% extends "layout/base_menu.html" %} 
 
-{% block titulo_aba %}<!-- Condicao Jinja que controla a exibicao de um bloco. -->
+{% block titulo_aba %}
 {% if editando %}Editar Inscrição Municipal{% else %}Cadastro de Inscrição Municipal{% endif %} | HD2R{% endblock %}
 
 {% block conteudo %}
@@ -8,38 +8,38 @@
 <div class="card border-0 shadow-sm rounded-4 p-4 p-md-5">
         <div class="mb-4">
             <span class="text-success fw-semibold small text-uppercase">Inscrição municipal</span>
-            <h1 class="h2 fw-bold mt-1"><!-- Condicao Jinja que controla a exibicao de um bloco. -->
+            <h1 class="h2 fw-bold mt-1">
 {% if editando %}Editar Inscrição Municipal{% else %}Cadastro de Inscrição Municipal{% endif %}</h1>
-            <p class="text-secondary mb-0"><!-- Condicao Jinja que controla a exibicao de um bloco. -->
+            <p class="text-secondary mb-0">
 {% if editando %}Altere os dados do responsável e da atividade empresarial.{% else %}Preencha os dados do responsável e da atividade empresarial.{% endif %}</p>
         </div>
 
-        <!-- Formulário: envia os campos ao endpoint Flask indicado em action. -->
-        <!-- Formulario que envia os campos preenchidos ao Flask. -->
+        
+        
 <form method="POST">
-            <!-- Campo de entrada; name permite ao Flask identificar o valor enviado. -->
+            
 <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
             
             <div class="row g-4">
                 <div class="col-md-6">
                     <label for="municipe" class="form-label fw-semibold">Munícipe</label>
-                    <!-- Campo de entrada; name permite ao Flask identificar o valor enviado. -->
+                    
 <input type="text" class="form-control" id="municipe" name="municipe"
                            value="{{ dados.get('municipe', '') }}"
-                           placeholder="Nome do munícipe"oninput="this.value = this.value.replace(/[^a-zA-ZÀ-ÿ\s]/g, '')" required>
+                           placeholder="Nome do munícipe" oninput="this.value = this.value.replace(/[^a-zA-ZÀ-ÿ\s]/g, '')" required>
                 </div>
 
                 <div class="col-md-6">
                     <label for="cnpj" class="form-label fw-semibold">CNPJ</label>
-                    <!-- Campo de entrada; name permite ao Flask identificar o valor enviado. -->
-<input type="text" class="form-control" id="cnpj" name="cnpj"
+                    
+<input type="text" class="form-control" id="cnpj" name="cnpj" inputmode="numeric"
                            value="{{ dados.get('cnpj', '') }}"
                            placeholder="00.000.000/0000-00" maxlength="14" minlength="14" oninput="this.value = this.value.replace(/\D/g, '')" required>
                 </div>
 
                 <div class="col-md-6">
                     <label for="codigo_atividade" class="form-label fw-semibold">Código de atividade</label>
-                    <!-- Campo de entrada; name permite ao Flask identificar o valor enviado. -->
+                    
 <input type="text" class="form-control" id="codigo_atividade" name="codigo_atividade"
                            value="{{ dados.get('codigo_atividade', '') }}"
                            placeholder="Código da atividade principal" required>
@@ -47,7 +47,7 @@
 
                 <div class="col-md-6">
                     <label for="atividade_secundaria" class="form-label fw-semibold">Atividade secundária <span class="text-secondary fw-normal">(opcional)</span></label>
-                    <!-- Campo de entrada; name permite ao Flask identificar o valor enviado. -->
+                    
 <input type="text" class="form-control" id="atividade_secundaria" name="atividade_secundaria"
                            value="{{ dados.get('atividade_secundaria', '') }}"
                            placeholder="Informe a atividade secundária, se houver">
@@ -55,7 +55,7 @@
 
                 <div class="col-12">
                     <label for="nome_fantasia" class="form-label fw-semibold">Nome fantasia</label>
-                    <!-- Campo de entrada; name permite ao Flask identificar o valor enviado. -->
+                    
 <input type="text" class="form-control" id="nome_fantasia" name="nome_fantasia"
                            value="{{ dados.get('nome_fantasia', '') }}"
                            placeholder="Nome fantasia da empresa" required>
@@ -64,11 +64,11 @@
 
             <hr class="my-5">
             <div class="d-flex justify-content-end gap-2">
-                <!-- Link para navegacao ou acao do registro. -->
+                
 <a href="{{ url_for('index') }}" class="btn btn-outline-secondary">Cancelar</a>
-                <!-- Botao para enviar ou executar a acao indicada. -->
+                
 <button type="submit" class="btn btn-verde px-4">
-                    <i class="bi bi-check-lg"></i> <!-- Condicao Jinja que controla a exibicao de um bloco. -->
+                    <i class="bi bi-check-lg"></i> 
 {% if editando %}Salvar alterações{% else %}Cadastrar inscrição{% endif %}
                 </button>
             </div>

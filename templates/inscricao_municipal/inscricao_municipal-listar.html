@@ -1,4 +1,4 @@
-{% extends "layout/base_menu.html" %} <!-- configura headder, footer e etc que é padrão em todo código-->
+{% extends "layout/base_menu.html" %} 
 
 {% block titulo_aba %}Listagem de Inscrições Municipais | HD2R{% endblock %}
 
@@ -9,19 +9,19 @@
             <h1 class="h2 fw-bold">Listagem de Inscrições Municipais</h1>
             <p class="text-secondary mb-0">Consulte as inscrições cadastradas nesta execução do sistema.</p>
         </div>
-        <!-- Link para navegacao ou acao do registro. -->
+        
 <a href="{{ url_for('cadastro_inscricao') }}" class="btn btn-success">
             <i class="bi bi-plus-circle"></i> Nova inscrição
         </a>
     </div>
 
     <div class="card border-0 shadow-sm rounded-4 p-3 p-md-4">
-        <!-- Condição Jinja: escolhe qual conteúdo será exibido conforme os dados recebidos. -->
-        <!-- Condicao Jinja que controla a exibicao de um bloco. -->
+        
+        
 {% if inscricoes %}
         <div class="table-responsive">
-            <!-- Tabela: organiza os dados retornados pelo servidor em linhas e colunas. -->
-            <!-- Tabela de registros cadastrados. -->
+            
+            
 <table class="table table-hover align-middle mb-0">
                 <thead>
                     <tr>
@@ -35,8 +35,8 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <!-- Loop Jinja: repete o conteúdo para cada registro da lista. -->
-                    <!-- Percorre os registros e gera o conteudo repetido para cada item. -->
+                    
+                    
 {% for inscricao in inscricoes %}
                     <tr>
                         <td>{{ inscricao.id }}</td>
@@ -46,14 +46,14 @@
                         <td>{{ inscricao.atividade_secundaria }}</td>
                         <td>{{ inscricao.nome_fantasia }}</td>
                         <td class="text-end text-nowrap">
-                            <!-- Link para navegacao ou acao do registro. -->
+                            
 <a href="{{ url_for('editar_inscricao', registro_id=inscricao.id) }}" class="btn btn-sm btn-outline-primary" title="Editar"><i class="bi bi-pencil"></i> Editar</a>
-                            <!-- Formulário: envia os campos ao endpoint Flask indicado em action. -->
-                            <!-- Formulario que envia os campos preenchidos ao Flask. -->
+                            
+                            
 <form method="POST" action="{{ url_for('remover_inscricao', registro_id=inscricao.id) }}" class="d-inline" onsubmit="return confirm('Tem certeza que deseja remover esta inscrição municipal?');">
-            <!-- Campo de entrada; name permite ao Flask identificar o valor enviado. -->
+            
 <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
-                                <!-- Botao para enviar ou executar a acao indicada. -->
+                                
 <button type="submit" class="btn btn-sm btn-outline-danger" title="Remover"><i class="bi bi-trash"></i> Remover</button>
                             </form>
                         </td>
@@ -67,7 +67,7 @@
             <i class="bi bi-building display-3 text-secondary"></i>
             <h2 class="h4 mt-3">Nenhuma inscrição encontrada</h2>
             <p class="text-secondary">Ainda não existem inscrições municipais cadastradas.</p>
-            <!-- Link para navegacao ou acao do registro. -->
+            
 <a href="{{ url_for('cadastro_inscricao') }}" class="btn btn-success">Cadastrar primeira inscrição</a>
         </div>
         {% endif %}

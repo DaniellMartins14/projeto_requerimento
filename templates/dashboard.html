@@ -1,6 +1,6 @@
-<!-- Dashboard: painel inicial com resumo das quantidades, registros recentes e atalhos para as principais funcoes. -->
-<!-- Painel com totais do sistema, registros recentes e atalhos de navegação. Os comentários seguintes explicam a estrutura e os blocos principais. -->
-{% extends "layout/base_menu.html" %} <!-- configura headder, footer e etc que é padrão em todo código-->
+
+
+{% extends "layout/base_menu.html" %} 
 
 {% block titulo_aba %}HD2R - Painel inicial{% endblock %}
 
@@ -15,7 +15,7 @@
     </span>
 </div>
 
-<!-- Cards de Estatísticas -->
+
 <div class="row g-3 mb-4">
     <div class="col-12 col-sm-6 col-xl-4">
         <div class="card border-0 shadow-sm rounded-3 h-100">
@@ -29,7 +29,7 @@
                 </div>
             </div>
             <div class="card-footer bg-transparent border-0 pt-0 pb-3">
-                <!-- Link/atalho de navegacao para outra rota do sistema. -->
+                
 <a href="{{ url_for('listagem') }}" class="btn btn-sm btn-outline-primary w-100">
                     Ver Munícipes <i class="bi bi-arrow-right ms-1"></i>
                 </a>
@@ -49,7 +49,7 @@
                 </div>
             </div>
             <div class="card-footer bg-transparent border-0 pt-0 pb-3">
-                <!-- Link/atalho de navegacao para outra rota do sistema. -->
+                
 <a href="{{ url_for('listagem_processo') }}" class="btn btn-sm btn-outline-success w-100">
                     Ver Processos <i class="bi bi-arrow-right ms-1"></i>
                 </a>
@@ -69,7 +69,7 @@
                 </div>
             </div>
             <div class="card-footer bg-transparent border-0 pt-0 pb-3">
-                <!-- Link/atalho de navegacao para outra rota do sistema. -->
+                
 <a href="{{ url_for('listagem_inscricao') }}" class="btn btn-sm btn-outline-warning w-100">
                     Ver Inscrições <i class="bi bi-arrow-right ms-1"></i>
                 </a>
@@ -78,21 +78,21 @@
     </div>
 </div>
 
-<!-- Destaques e Atalhos Rápidos -->
+
 <div class="row g-4">
     <div class="col-12 col-lg-8">
         <div class="card border-0 shadow-sm rounded-3">
             <div class="card-header bg-white py-3 border-0 d-flex justify-content-between align-items-center">
                 <h5 class="fw-bold mb-0">Últimos Munícipes Cadastrados</h5>
-                <!-- Link/atalho de navegacao para outra rota do sistema. -->
+                
 <a href="{{ url_for('cadastro') }}" class="btn btn-sm btn-primary">
                     <i class="bi bi-plus-lg me-1"></i> Novo Munícipe
                 </a>
             </div>
             <div class="card-body p-0">
                 <div class="table-responsive">
-                    <!-- Tabela: organiza os dados retornados pelo servidor em linhas e colunas. -->
-                    <!-- Tabela para organizar os dados em linhas e colunas. -->
+                    
+                    
 <table class="table table-hover table-striped align-middle mb-0">
                         <thead class="table-light">
                             <tr>
@@ -104,8 +104,8 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <!-- Loop Jinja: repete o conteúdo para cada registro da lista. -->
-                            <!-- Loop Jinja: repete o trecho para cada registro da lista recebida do Flask. -->
+                            
+                            
 {% for municipe in ultimos_municipes %}
                             <tr>
                                 <td class="text-muted fw-bold">{{ municipe.id }}</td>
@@ -133,15 +133,15 @@
             </div>
             <div class="card-body">
                 <div class="d-grid gap-2">
-                    <!-- Link/atalho de navegacao para outra rota do sistema. -->
+                    
 <a href="{{ url_for('cadastro') }}" class="btn btn-outline-primary text-start">
                         <i class="bi bi-person-plus me-2"></i> Cadastrar Munícipe
                     </a>
-                    <!-- Link/atalho de navegacao para outra rota do sistema. -->
+                    
 <a href="{{ url_for('cadastro_processo') }}" class="btn btn-outline-success text-start">
                         <i class="bi bi-plus-circle me-2"></i> Cadastrar Processo
                     </a>
-                    <!-- Link/atalho de navegacao para outra rota do sistema. -->
+                    
 <a href="{{ url_for('cadastro_inscricao') }}" class="btn btn-outline-warning text-start">
                         <i class="bi bi-building-add me-2"></i> Cadastrar Inscrição Municipal
                     </a>

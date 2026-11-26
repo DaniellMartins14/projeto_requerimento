@@ -1,4 +1,4 @@
-{% extends "layout/base_menu.html" %} <!-- configura headder, footer e etc que é padrão em todo código-->
+{% extends "layout/base_menu.html" %} 
 
 {% block titulo_aba %}Listagem de Processos Simples | HD2R{% endblock %}
 
@@ -9,17 +9,17 @@
             <h1 class="h2 fw-bold">Listagem de Processos Simples</h1>
             <p class="text-secondary mb-0">Consulte os processos cadastrados nesta execução do sistema.</p>
         </div>
-        <!-- Link para outra pagina/acao do sistema. -->
+        
 <a href="{{ url_for('cadastro_processo') }}" class="btn btn-success">
             <i class="bi bi-plus-circle"></i> Novo processo
         </a>
     </div>
 
     <div class="card border-0 shadow-sm rounded-4 p-3 p-md-4">
-        <!-- Condicao Jinja para mostrar conteudo conforme a situacao. -->
+        
 {% if processos %}
         <div class="table-responsive">
-            <!-- Tabela para organizar os processos cadastrados. -->
+            
 <table class="table table-hover align-middle mb-0">
                 <thead>
                     <tr>
@@ -33,7 +33,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <!-- Loop Jinja: percorre cada processo e monta uma linha correspondente. -->
+                    
 {% for processo in processos %}
                     <tr>
                         <td>{{ processo.id }}</td>
@@ -43,16 +43,16 @@
                         <td>{{ processo.local_execucao }}</td>
                         <td>{{ processo.secretaria_destinada }}</td>
                         <td class="text-end text-nowrap">
-                            <!-- Link para outra pagina/acao do sistema. -->
+                            
 <a href="{{ url_for('visualizar_processo', registro_id=processo.id) }}" class="btn btn-sm btn-outline-secondary" title="Ver solicitação"><i class="bi bi-eye"></i> Ver solicitação</a>
-                            <!-- Link para outra pagina/acao do sistema. -->
+                            
 <a href="{{ url_for('editar_processo', registro_id=processo.id) }}" class="btn btn-sm btn-outline-primary" title="Editar"><i class="bi bi-pencil"></i> Editar</a>
-                            <!-- Formulario que envia os valores para a rota Flask. -->
+                            
 <form method="POST" action="{{ url_for('remover_processo', registro_id=processo.id) }}" class="d-inline" onsubmit="return confirm('Tem certeza que deseja remover este processo?');">
-            <!-- Campo de entrada para uma informacao do processo. -->
+            
 <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
             
-                                <!-- Botao para enviar formulario ou executar acao. -->
+                                
 <button type="submit" class="btn btn-sm btn-outline-danger" title="Remover"><i class="bi bi-trash"></i> Remover</button>
                             </form>
                         </td>
@@ -66,7 +66,7 @@
             <i class="bi bi-file-earmark-text display-3 text-secondary"></i>
             <h2 class="h4 mt-3">Nenhum processo encontrado</h2>
             <p class="text-secondary">Ainda não existem processos simples cadastrados.</p>
-            <!-- Link para outra pagina/acao do sistema. -->
+            
 <a href="{{ url_for('cadastro_processo') }}" class="btn btn-success">Cadastrar primeiro processo</a>
         </div>
         {% endif %}

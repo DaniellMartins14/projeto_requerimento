@@ -1,6 +1,6 @@
-{% extends "layout/base_menu.html" %} <!-- configura headder, footer e etc que é padrão em todo código-->
+{% extends "layout/base_menu.html" %} 
 
-{% block titulo_aba %}<!-- Condicao Jinja para mostrar conteudo conforme a situacao. -->
+{% block titulo_aba %}
 {% if editando %}Editar Processo{% else %}Cadastro de Processo Simples{% endif %} | HD2R{% endblock %}
 
 {% block conteudo %}
@@ -8,21 +8,21 @@
 <div class="card border-0 shadow-sm rounded-4 p-4 p-md-5">
         <div class="mb-4">
             <span class="text-success fw-semibold small text-uppercase">Processos</span>
-            <h1 class="h2 fw-bold mt-1"><!-- Condicao Jinja para mostrar conteudo conforme a situacao. -->
+            <h1 class="h2 fw-bold mt-1">
 {% if editando %}Editar Processo{% else %}Cadastro de Processo Simples{% endif %}</h1>
-            <p class="text-secondary mb-0"><!-- Condicao Jinja para mostrar conteudo conforme a situacao. -->
+            <p class="text-secondary mb-0">
 {% if editando %}Altere as informações do processo.{% else %}Preencha as informações para registrar a solicitação.{% endif %}</p>
         </div>
 
-        <!-- Formulario que envia os valores para a rota Flask. -->
+        
 <form method="POST">
-            <!-- Campo de entrada para uma informacao do processo. -->
+            
 <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
             
             <div class="row g-4">
                 <div class="col-md-6">
                     <label for="municipe" class="form-label fw-semibold">Munícipe</label>
-                    <!-- Campo de entrada para uma informacao do processo. -->
+                    
 <input type="text"
                         class="form-control"
                         id="municipe"
@@ -35,14 +35,14 @@
 
                 <div class="col-md-6">
                     <label for="data_execucao" class="form-label fw-semibold">Data a ser executado</label>
-                    <!-- Campo de entrada para uma informacao do processo. -->
+                    
 <input type="date" class="form-control" id="data_execucao" name="data_execucao"
                            value="{{ dados.get('data_execucao', '') }}" required>
                 </div>
 
                 <div class="col-12">
                     <label for="solicitacao" class="form-label fw-semibold">Solicitação</label>
-                    <!-- Campo de texto maior para descrever a solicitacao. -->
+                    
 <textarea class="form-control" id="solicitacao" name="solicitacao" rows="4"
                               placeholder="Descreva o que está sendo solicitado"
                               required>{{ dados.get('solicitacao', '') }}</textarea>
@@ -50,7 +50,7 @@
 
                 <div class="col-md-6">
                     <label for="local_execucao" class="form-label fw-semibold">Local de execução</label>
-                    <!-- Campo de entrada para uma informacao do processo. -->
+                    
 <input type="text" class="form-control" id="local_execucao" name="local_execucao"
                            value="{{ dados.get('local_execucao', '') }}"
                            placeholder="Informe o local onde será executado" required>
@@ -58,7 +58,7 @@
 
                 <div class="col-md-6">
                     <label for="secretaria_destinada" class="form-label fw-semibold">Secretaria destinada</label>
-                    <!-- Campo de entrada para uma informacao do processo. -->
+                    
 <input type="text" class="form-control" id="secretaria_destinada" name="secretaria_destinada"
                            value="{{ dados.get('secretaria_destinada', '') }}"
                            placeholder="Informe a secretaria responsável" required>
@@ -67,11 +67,11 @@
 
             <hr class="my-5">
             <div class="d-flex justify-content-end gap-2">
-                <!-- Link para outra pagina/acao do sistema. -->
+                
 <a href="{{ url_for('index') }}" class="btn btn-outline-secondary">Cancelar</a>
-                <!-- Botao para enviar formulario ou executar acao. -->
+                
 <button type="submit" class="btn btn-verde px-4">
-                    <i class="bi bi-check-lg"></i> <!-- Condicao Jinja para mostrar conteudo conforme a situacao. -->
+                    <i class="bi bi-check-lg"></i> 
 {% if editando %}Salvar alterações{% else %}Cadastrar processo{% endif %}
                 </button>
             </div>

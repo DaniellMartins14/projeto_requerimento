@@ -1,6 +1,6 @@
-{% extends "layout/base_menu.html" %} <!-- configura headder, footer e etc que é padrão em todo código-->
+{% extends "layout/base_menu.html" %} 
 
-{% block titulo_aba %}<!-- Condicao Jinja: altera a exibicao conforme cadastro/edicao ou situacao do registro. -->
+{% block titulo_aba %}
 {% if editando %}Editar Munícipe{% else %}Cadastro de Munícipe{% endif %} | HD2R{% endblock %}
 
 
@@ -8,160 +8,161 @@
 <div class="py-5">
         <div class="card p-4 p-md-5">
             <div class="mb-4">
-                <h1 class="h2 fw-bold"><!-- Condicao Jinja: altera a exibicao conforme cadastro/edicao ou situacao do registro. -->
+                <h1 class="h2 fw-bold">
 {% if editando %}Editar Munícipe{% else %}Cadastro de Munícipe{% endif %}</h1>
-                <p class="text-secondary mb-0"><!-- Condicao Jinja: altera a exibicao conforme cadastro/edicao ou situacao do registro. -->
+                <p class="text-secondary mb-0">
 {% if editando %}Altere os dados. Deixe a senha em branco para mantê-la.{% else %}Preencha os dados abaixo para realizar um novo cadastro.{% endif %}</p>
             </div>
 
-            <!-- JINJA QUE FAZ APARECER OS CAMPOS NECESSÁRIOS NO CASO DO NOVO USUÁRIO SER MUNÍCIPE -->
-<!-- ESSA PARTE AQUI, PEGA AS INFORMAÇÕES E MANDA COMO POST, PARA SER USADO NA LÓGICA DE IF DO PYTHON -->
-            <!-- Formulario: campos preenchidos sao enviados para a rota Flask definida em action. -->
-<form method="POST" action="<!-- Condicao Jinja: altera a exibicao conforme cadastro/edicao ou situacao do registro. -->
-{% if editando %}{{ url_for('editar_municipe', registro_id=registro_id) }}{% else %}{{ url_for('cadastro') }}{% endif %}" id="formCadastro">
-            <!-- Campo de entrada de dados. O atributo name identifica o valor que o Flask recebe. -->
+            
+
+            
+<form method="POST"
+                  action="{% if editando %}{{ url_for('editar_municipe', registro_id=registro_id) }}{% else %}{{ url_for('cadastro') }}{% endif %}"
+                  id="formCadastro">
+            
 <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
             
                 <h2 class="h5 section-title mb-4"><i class="bi bi-person-vcard"></i> Dados pessoais</h2>
                 <div class="row g-3">
-                    <div class="col-12"><label for="nome" class="form-label fw-semibold">Nome completo *</label><!-- Campo de entrada de dados. O atributo name identifica o valor que o Flask recebe. -->
+                    <div class="col-12"><label for="nome" class="form-label fw-semibold">Nome completo *</label>
 <input
-                            type="text" class="form-control" id="nome" name="nome" value="{{ dados.get('nome','') }}"oninput="this.value = this.value.replace(/[^a-zA-ZÀ-ÿ\s]/g, '')"
+                            type="text" class="form-control" id="nome" name="nome" value="{{ dados.get('nome','') }}" oninput="this.value = this.value.replace(/[^a-zA-ZÀ-ÿ\s]/g, '')"
                             required></div>
-                    <div class="col-md-6"><label for="telefone" class="form-label fw-semibold">Telefone *</label><!-- Campo de entrada de dados. O atributo name identifica o valor que o Flask recebe. -->
+                    <div class="col-md-6"><label for="telefone" class="form-label fw-semibold">Telefone *</label>
 <input
                             type="tel" class="form-control" id="telefone" name="telefone" placeholder="(14) 99999-9999"
                             value="{{ dados.get('telefone','') }}" maxlength="15"  oninput="this.value = this.value.replace(/\D/g, '')" required></div>
-                    <div class="col-md-6"><label for="email" class="form-label fw-semibold">E-mail *</label><!-- Campo de entrada de dados. O atributo name identifica o valor que o Flask recebe. -->
+                    <div class="col-md-6"><label for="email" class="form-label fw-semibold">E-mail *</label>
 <input
                             type="email" class="form-control" id="email" name="email" placeholder="nome@email.com"
                             value="{{ dados.get('email','') }}" required></div>
                     <div class="col-md-8">
                         <label for="endereco" class="form-label fw-semibold">Endereço *</label>
-                        <!-- Campo de entrada de dados. O atributo name identifica o valor que o Flask recebe. -->
+                        
 <input type="text" class="form-control" id="endereco" name="endereco"
                             placeholder="Rua, Avenida, etc." value="{{ dados.get('endereco','') }}" required>
                     </div>
 
                     <div class="col-md-4">
                         <label for="numero" class="form-label fw-semibold">Número</label>
-                        <!-- Campo de entrada de dados. O atributo name identifica o valor que o Flask recebe. -->
+                        
 <input type="text" class="form-control" id="numero" name="numero" placeholder="Número ou S/N"
                             value="{{ dados.get('numero','') }}">
                     </div>
 
                     <div class="col-md-4">
                         <label for="cep" class="form-label fw-semibold">CEP *</label>
-                        <!-- Campo de entrada de dados. O atributo name identifica o valor que o Flask recebe. -->
-<input type="text" class="form-control" id="cep" name="cep" placeholder="00000-000"
-                            maxlength="9" value="{{ dados.get('cep','') }}" maxlength="8" oninput="this.value = this.value.replace(/\D/g, '')" required>
+                        
+<input type="text" class="form-control" id="cep" name="cep" placeholder="00000-000" inputmode="numeric"
+                            maxlength="8" value="{{ dados.get('cep','') }}" oninput="this.value = this.value.replace(/\D/g, '')" required>
                     </div>
 
                     <div class="col-md-4">
                         <label for="cidade" class="form-label fw-semibold">Cidade *</label>
-                        <!-- Campo de entrada de dados. O atributo name identifica o valor que o Flask recebe. -->
+                        
 <input type="text" class="form-control" id="cidade" name="cidade" placeholder="Nome da cidade"
                             value="{{ dados.get('cidade','') }}" required>
                     </div>
 
                     <div class="col-md-4">
                         <label for="estado" class="form-label fw-semibold">Estado *</label>
-                        <!-- Lista de opcoes para selecionar um valor permitido. -->
+                        
 <select class="form-select" id="estado" name="estado" required>
                             <option value="">Selecione...</option>
-                            <option value="AC" <!-- Condicao Jinja: altera a exibicao conforme cadastro/edicao ou situacao do registro. -->
+                            <option value="AC" 
 {% if dados.get('estado')=='AC' %}selected{% endif %}>Acre</option>
-                            <option value="AL" <!-- Condicao Jinja: altera a exibicao conforme cadastro/edicao ou situacao do registro. -->
+                            <option value="AL" 
 {% if dados.get('estado')=='AL' %}selected{% endif %}>Alagoas</option>
-                            <option value="AP" <!-- Condicao Jinja: altera a exibicao conforme cadastro/edicao ou situacao do registro. -->
+                            <option value="AP" 
 {% if dados.get('estado')=='AP' %}selected{% endif %}>Amapá</option>
-                            <option value="AM" <!-- Condicao Jinja: altera a exibicao conforme cadastro/edicao ou situacao do registro. -->
+                            <option value="AM" 
 {% if dados.get('estado')=='AM' %}selected{% endif %}>Amazonas</option>
-                            <option value="BA" <!-- Condicao Jinja: altera a exibicao conforme cadastro/edicao ou situacao do registro. -->
+                            <option value="BA" 
 {% if dados.get('estado')=='BA' %}selected{% endif %}>Bahia</option>
-                            <option value="CE" <!-- Condicao Jinja: altera a exibicao conforme cadastro/edicao ou situacao do registro. -->
+                            <option value="CE" 
 {% if dados.get('estado')=='CE' %}selected{% endif %}>Ceará</option>
-                            <option value="DF" <!-- Condicao Jinja: altera a exibicao conforme cadastro/edicao ou situacao do registro. -->
+                            <option value="DF" 
 {% if dados.get('estado')=='DF' %}selected{% endif %}>Distrito Federal
                             </option>
-                            <option value="ES" <!-- Condicao Jinja: altera a exibicao conforme cadastro/edicao ou situacao do registro. -->
+                            <option value="ES" 
 {% if dados.get('estado')=='ES' %}selected{% endif %}>Espírito Santo
                             </option>
-                            <option value="GO" <!-- Condicao Jinja: altera a exibicao conforme cadastro/edicao ou situacao do registro. -->
+                            <option value="GO" 
 {% if dados.get('estado')=='GO' %}selected{% endif %}>Goiás</option>
-                            <option value="MA" <!-- Condicao Jinja: altera a exibicao conforme cadastro/edicao ou situacao do registro. -->
+                            <option value="MA" 
 {% if dados.get('estado')=='MA' %}selected{% endif %}>Maranhão</option>
-                            <option value="MT" <!-- Condicao Jinja: altera a exibicao conforme cadastro/edicao ou situacao do registro. -->
+                            <option value="MT" 
 {% if dados.get('estado')=='MT' %}selected{% endif %}>Mato Grosso
                             </option>
-                            <option value="MS" <!-- Condicao Jinja: altera a exibicao conforme cadastro/edicao ou situacao do registro. -->
+                            <option value="MS" 
 {% if dados.get('estado')=='MS' %}selected{% endif %}>Mato Grosso do Sul
                             </option>
-                            <option value="MG" <!-- Condicao Jinja: altera a exibicao conforme cadastro/edicao ou situacao do registro. -->
+                            <option value="MG" 
 {% if dados.get('estado')=='MG' %}selected{% endif %}>Minas Gerais
                             </option>
-                            <option value="PA" <!-- Condicao Jinja: altera a exibicao conforme cadastro/edicao ou situacao do registro. -->
+                            <option value="PA" 
 {% if dados.get('estado')=='PA' %}selected{% endif %}>Pará</option>
-                            <option value="PB" <!-- Condicao Jinja: altera a exibicao conforme cadastro/edicao ou situacao do registro. -->
+                            <option value="PB" 
 {% if dados.get('estado')=='PB' %}selected{% endif %}>Paraíba</option>
-                            <option value="PR" <!-- Condicao Jinja: altera a exibicao conforme cadastro/edicao ou situacao do registro. -->
+                            <option value="PR" 
 {% if dados.get('estado')=='PR' %}selected{% endif %}>Paraná</option>
-                            <option value="PE" <!-- Condicao Jinja: altera a exibicao conforme cadastro/edicao ou situacao do registro. -->
+                            <option value="PE" 
 {% if dados.get('estado')=='PE' %}selected{% endif %}>Pernambuco</option>
-                            <option value="PI" <!-- Condicao Jinja: altera a exibicao conforme cadastro/edicao ou situacao do registro. -->
+                            <option value="PI" 
 {% if dados.get('estado')=='PI' %}selected{% endif %}>Piauí</option>
-                            <option value="RJ" <!-- Condicao Jinja: altera a exibicao conforme cadastro/edicao ou situacao do registro. -->
+                            <option value="RJ" 
 {% if dados.get('estado')=='RJ' %}selected{% endif %}>Rio de Janeiro
                             </option>
-                            <option value="RN" <!-- Condicao Jinja: altera a exibicao conforme cadastro/edicao ou situacao do registro. -->
+                            <option value="RN" 
 {% if dados.get('estado')=='RN' %}selected{% endif %}>Rio Grande do Norte
                             </option>
-                            <option value="RS" <!-- Condicao Jinja: altera a exibicao conforme cadastro/edicao ou situacao do registro. -->
+                            <option value="RS" 
 {% if dados.get('estado')=='RS' %}selected{% endif %}>Rio Grande do Sul
                             </option>
-                            <option value="RO" <!-- Condicao Jinja: altera a exibicao conforme cadastro/edicao ou situacao do registro. -->
+                            <option value="RO" 
 {% if dados.get('estado')=='RO' %}selected{% endif %}>Rondônia</option>
-                            <option value="RR" <!-- Condicao Jinja: altera a exibicao conforme cadastro/edicao ou situacao do registro. -->
+                            <option value="RR" 
 {% if dados.get('estado')=='RR' %}selected{% endif %}>Roraima</option>
-                            <option value="SC" <!-- Condicao Jinja: altera a exibicao conforme cadastro/edicao ou situacao do registro. -->
+                            <option value="SC" 
 {% if dados.get('estado')=='SC' %}selected{% endif %}>Santa Catarina
                             </option>
-                            <option value="SP" <!-- Condicao Jinja: altera a exibicao conforme cadastro/edicao ou situacao do registro. -->
+                            <option value="SP" 
 {% if dados.get('estado')=='SP' %}selected{% endif %}>São Paulo</option>
-                            <option value="SE" <!-- Condicao Jinja: altera a exibicao conforme cadastro/edicao ou situacao do registro. -->
+                            <option value="SE" 
 {% if dados.get('estado')=='SE' %}selected{% endif %}>Sergipe</option>
-                            <option value="TO" <!-- Condicao Jinja: altera a exibicao conforme cadastro/edicao ou situacao do registro. -->
+                            <option value="TO" 
 {% if dados.get('estado')=='TO' %}selected{% endif %}>Tocantins</option>
                         </select>
                     </div>
 
                     <div class="col-12">
                         <label for="complemento" class="form-label fw-semibold">Complemento</label>
-                        <!-- Campo de entrada de dados. O atributo name identifica o valor que o Flask recebe. -->
+                        
 <input type="text" class="form-control" id="complemento" name="complemento"
                             placeholder="Apartamento, bloco, casa, etc. (opcional)"
                             value="{{ dados.get('complemento','') }}">
                     </div>
-                    <div class="col-md-4"><label for="cpf" class="form-label fw-semibold">CPF *</label><!-- Campo de entrada de dados. O atributo name identifica o valor que o Flask recebe. -->
+                    <div class="col-md-4"><label for="cpf" class="form-label fw-semibold">CPF *</label>
 <input
                             type="text" class="form-control" id="cpf" name="cpf" placeholder="000.000.000-00"
                             maxlength="14" value="{{ dados.get('cpf','') }}" required>
                     </div>
                     <div class="col-md-4"><label for="data_nascimento" class="form-label fw-semibold">Data de nascimento
-                            *</label><!-- Campo de entrada de dados. O atributo name identifica o valor que o Flask recebe. -->
+                            *</label>
 <input type="date" class="form-control" id="data_nascimento" name="data_nascimento"
                             value="{{ dados.get('data_nascimento','') }}" required></div>
                     <div class="col-md-4"><label for="nivel_acesso" class="form-label fw-semibold">Nível de acesso
-                            *</label><!-- Lista de opcoes para selecionar um valor permitido. -->
+                            *</label>
 <select class="form-select" id="nivel_acesso" name="nivel_acesso" required>
                             <option value="">Selecione...</option>
-                            <option value="municipe" <!-- Condicao Jinja: altera a exibicao conforme cadastro/edicao ou situacao do registro. -->
+                            <option value="municipe" 
 {% if nivel_acesso=='municipe' %}selected{% endif %}>Munícipe
                             </option>
-                            <option value="servidor" <!-- Condicao Jinja: altera a exibicao conforme cadastro/edicao ou situacao do registro. -->
+                            <option value="servidor" 
 {% if nivel_acesso=='servidor' %}selected{% endif %}>Servidor
                             </option>
-                            <option value="administrador" <!-- Condicao Jinja: altera a exibicao conforme cadastro/edicao ou situacao do registro. -->
+                            <option value="administrador" 
 {% if nivel_acesso=='administrador' %}selected{% endif %}>
                                 Administrador</option>
                         </select>
@@ -173,28 +174,28 @@
                     <h2 class="h5 section-title mb-4"><i class="bi bi-shield-lock"></i> Acesso ao sistema</h2>
                     <div class="row g-3">
                         <div class="col-md-6">
-                            <label for="senha" class="form-label fw-semibold">Senha <!-- Condicao Jinja: altera a exibicao conforme cadastro/edicao ou situacao do registro. -->
+                            <label for="senha" class="form-label fw-semibold">Senha 
 {% if not editando %}*{% else %}(opcional){% endif %}</label>
-                            <!-- Campo de entrada de dados. O atributo name identifica o valor que o Flask recebe. -->
+                            
 <input type="password" class="form-control" id="senha" name="senha"
-                                autocomplete="new-password" <!-- Condicao Jinja: altera a exibicao conforme cadastro/edicao ou situacao do registro. -->
+                                autocomplete="new-password" 
 {% if not editando %}required{% endif %}>
                         </div>
                         <div class="col-md-6">
-                            <label for="confirmar_senha" class="form-label fw-semibold">Confirmar senha <!-- Condicao Jinja: altera a exibicao conforme cadastro/edicao ou situacao do registro. -->
+                            <label for="confirmar_senha" class="form-label fw-semibold">Confirmar senha 
 {% if not editando %}*{% else %}(opcional){% endif %}</label>
-                            <!-- Campo de entrada de dados. O atributo name identifica o valor que o Flask recebe. -->
+                            
 <input type="password" class="form-control" id="confirmar_senha" name="confirmar_senha"
-                                autocomplete="new-password" required>
+                                autocomplete="new-password" {% if not editando %}required{% endif %}>
                         </div>
                     </div>
                 </div>
                 <hr class="my-5">
-                <div class="d-flex justify-content-end gap-2"><!-- Link para navegar, abrir edicao ou outra rota. -->
+                <div class="d-flex justify-content-end gap-2">
 <a href="{{ url_for('index') }}"
-                        class="btn btn-outline-secondary">Cancelar</a><!-- Botao de envio ou acao do formulario. -->
+                        class="btn btn-outline-secondary">Cancelar</a>
 <button type="submit"
-                        class="btn btn-verde px-4"><i class="bi bi-check-lg"></i> <!-- Condicao Jinja: altera a exibicao conforme cadastro/edicao ou situacao do registro. -->
+                        class="btn btn-verde px-4"><i class="bi bi-check-lg"></i> 
 {% if editando %}Salvar alterações{% else %}Cadastrar{% endif %}</button></div>
             </form>
         </div>
@@ -202,6 +203,6 @@
 {% endblock %}
 
 {% block scripts %}
-<!-- JavaScript complementar executado no navegador. -->
+
 <script>document.getElementById('cpf').addEventListener('input', function () {let v = this.value.replace(/\D/g, '').slice(0, 11); v = v.replace(/(\d{3})(\d)/, '$1.$2').replace(/(\d{3})(\d)/, '$1.$2').replace(/(\d{3})(\d{1,2})$/, '$1-$2'); this.value = v});</script>
 {% endblock %}
