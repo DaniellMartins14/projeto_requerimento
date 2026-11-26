@@ -1,0 +1,74 @@
+{% extends "layout/base_menu.html" %} <!-- configura headder, footer e etc que é padrão em todo código-->
+
+{% block titulo_aba %}Listagem de Munícipes | HD2R{% endblock %}
+
+
+{% block conteudo %}
+<div class="py-5">
+<div
+            class="d-flex flex-column flex-md-row justify-content-between align-items-md-center gap-3 mb-4">
+            <div>
+                <h1 class="h2 fw-bold">Listagem de Munícipes</h1>
+                <p class="text-secondary mb-0">Consulte os cadastros realizados nesta execução do sistema.</p>
+            </div><!-- Link para navegar, abrir edicao ou outra rota. -->
+<a href="{{ url_for('cadastro') }}" class="btn btn-success"><i class="bi bi-person-plus"></i> Novo
+                cadastro</a>
+        </div>
+        <div class="card p-3 p-md-4"><!-- Condicao Jinja: altera a exibicao conforme cadastro/edicao ou situacao do registro. -->
+{% if municipes %}<div class="table-responsive">
+                <!-- Tabela para exibir os cadastros de forma organizada. -->
+<table class="table table-hover align-middle mb-0">
+                    <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>Nome</th>
+                            <th>Telefone</th>
+                            <th>E-mail</th>
+                            <th>CPF</th>
+                            <th>Nascimento</th>
+                            <th>Acesso</th>
+                            <th>Endereço</th>
+                            <th>Número</th>
+                            <th>CEP</th>
+                            <th>Cidade</th>
+                            <th>Estado</th>
+                            <th>Complemento</th><th class="text-end">Ações</th>
+                        </tr>
+                    </thead>
+                    <tbody><!-- Repete a linha da tabela para cada municipe retornado pelo Flask. -->
+{% for municipe in municipes %}<tr>
+                            <td>{{ municipe.id }}</td>
+                            <td class="fw-semibold">{{ municipe.nome }}</td>
+                            <td>{{ municipe.telefone }}</td>
+                            <td>{{ municipe.email }}</td>
+                            <td>{{ municipe.cpf }}</td>
+                            <td>{{ municipe.data_nascimento }}</td>
+                            <td><!-- Condicao Jinja: altera a exibicao conforme cadastro/edicao ou situacao do registro. -->
+{% if municipe.nivel_acesso=='administrador' %}<span
+                                    class="badge text-bg-danger">Administrador</span>{% elif
+                                municipe.nivel_acesso=='servidor' %}<span
+                                    class="badge text-bg-warning">Servidor</span>{% else %}<span
+                                    class="badge text-bg-success">Munícipe</span>{% endif %}</td>
+                            <td>{{ municipe.endereco }}</td>
+                            <td>{{ municipe.numero }}</td>
+                            <td>{{ municipe.cep }}</td>
+                            <td>{{ municipe.cidade }}</td>
+                            <td>{{ municipe.estado }}</td>
+                            <td>{{ municipe.complemento or '—' }}</td><td class="text-end"><!-- Link para navegar, abrir edicao ou outra rota. -->
+<a class="btn btn-sm btn-outline-primary" href="{{ url_for('editar_municipe', registro_id=municipe.id) }}"><i class="bi bi-pencil"></i> Editar</a> <!-- Formulario: campos preenchidos sao enviados para a rota Flask definida em action. -->
+<form method="POST" class="d-inline" action="{{ url_for('remover_municipe', registro_id=municipe.id) }}" onsubmit="return confirm('Remover este munícipe?')">
+            <!-- Campo de entrada de dados. O atributo name identifica o valor que o Flask recebe. -->
+<input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+            <!-- Botao de envio ou acao do formulario. -->
+<button class="btn btn-sm btn-outline-danger"><i class="bi bi-trash"></i> Remover</button></form></td>
+                        </tr>{% endfor %}</tbody>
+                </table>
+            </div>{% else %}<div class="text-center py-5"><i class="bi bi-people display-3 text-secondary"></i>
+                <h2 class="h4 mt-3">Nenhum cadastro encontrado</h2>
+                <p class="text-secondary">Ainda não existem munícipes cadastrados.</p><!-- Link para navegar, abrir edicao ou outra rota. -->
+<a
+                    href="{{ url_for('cadastro') }}" class="btn btn-success">Fazer primeiro cadastro</a>
+            </div>{% endif %}</div>
+</div>
+{% endblock %}
+
