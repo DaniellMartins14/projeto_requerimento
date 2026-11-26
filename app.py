@@ -23,7 +23,7 @@ load_dotenv()
 from db import execute_one, execute_query, execute_insert
 
 app = Flask(__name__)
-# Chave usada para proteger os dados da sessao do usuario.
+# chave usada para proteger os dados da sessao do usuario.
 app.secret_key = os.getenv("SECRET_KEY")
 ## proteção contra requisição de sites maliciosos, que podem estar em outra guia
 CSRFProtect(app)
@@ -42,10 +42,10 @@ def login_required(rota):
     return verificar_login
 
 
-##função para buscar usuário por email
+## função para buscar usuário por email
 def buscar_municipe_por_email(email):
     """Busca um munícipe ativo no MySQL, ignorando espaços e caixa."""
-    # Remove espacos antes e depois do e-mail informado.
+    # remove espacos antes e depois do e-mail informado.
     email_normalizado = (email or "").strip()
     return execute_one(
         "SELECT id_municipe AS id, nome, telefone, endereco, cep, numero, cidade, "
@@ -58,7 +58,7 @@ def buscar_municipe_por_email(email):
 ## função que busca múnicipe por nome - serve para abrir protocolos apenas para munícipes cadastrados
 def buscar_municipe_por_nome(nome):
     """Busca um munícipe ativo pelo nome, sem diferenciar caixa ou espaços."""
-    # Remove espacos repetidos e normaliza o nome para facilitar a comparacao.
+    # remove espacos repetidos e normaliza o nome para facilitar a comparacao.
     nome_normalizado = " ".join((nome or "").split())
     return execute_one(
         "SELECT id_municipe AS id, nome FROM municipes "
