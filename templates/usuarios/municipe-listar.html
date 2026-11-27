@@ -56,7 +56,7 @@
                             <td>{{ municipe.estado }}</td>
                             <td>{{ municipe.complemento or '—' }}</td><td class="text-end">
 <a class="btn btn-sm btn-outline-primary" href="{{ url_for('editar_municipe', registro_id=municipe.id) }}"><i class="bi bi-pencil"></i> Editar</a> 
-<form method="POST" class="d-inline" action="{{ url_for('remover_municipe', registro_id=municipe.id) }}" onsubmit="return confirm('Remover este munícipe?')">
+<form method="POST" class="d-inline" action="{{ url_for('remover_municipe', registro_id=municipe.id) }}" >
             
 <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
             

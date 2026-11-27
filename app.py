@@ -29,7 +29,7 @@ app.secret_key = os.getenv("SECRET_KEY")
 CSRFProtect(app)
 
 ## fala quais os níveis de acesso
-NIVEIS_ACESSO = ["municipe", "servidor", "administrador"]
+NIVEIS_ACESSO = ["municipe", "servidor", "administrador"]                                                                                  
 
 ## função que garante que o usuário esteja logado para acessar outras páginas
 def login_required(rota):
@@ -343,7 +343,7 @@ def remover_municipe(registro_id):
                     "WHERE id_municipe=%s AND deletado_em IS NULL",
                     (registro_id,),
                 )
-                flash("Munícipe removido com sucesso!", "success")
+                flash("Munícipe removido com sucesso!", "danger")
         except Error:
             flash("Não foi possível remover o munícipe.", "danger")
     return redirect(url_for("listagem"))
